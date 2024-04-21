@@ -15,7 +15,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             new Employee("Иван", "Иванов", 1, 15000),
             new Employee("Семён", "Семёнов", 2, 17000),
             new Employee("Дмитрий", "Дмитриев", 2, 12000),
-            new Employee("Фёдор", "Фёдоров", 1, 18000));
+            new Employee("Фёдор", "Фёдоров", 1, 18000),
+            new Employee("Пётр", "Петров", 2, 21000));
 
 //    private static final int MAX_EMPLOYEES = 5;
 
