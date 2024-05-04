@@ -1,16 +1,27 @@
 package sky.pro.Homework2.StreamApi.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import sky.pro.Homework2.StreamApi.exeption.EmployeeNotFoundException;
+import sky.pro.Homework2.StreamApi.exeption.InvalidImputException;
 import sky.pro.Homework2.StreamApi.model.Employee;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.StringUtils.*;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
+//    private final Map<String, Employee> employees;
+
+//    public EmployeeServiceImpl() {
+//        this.employees = new HashMap<>();
+//    }
     private final List<Employee> employees = List.of(
             new Employee("Иван", "Иванов", 1, 15000),
             new Employee("Семён", "Семёнов", 2, 17000),
@@ -20,17 +31,34 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 //    private static final int MAX_EMPLOYEES = 5;
 
+    //домашка про библиотеки 2.10
+    private boolean validateImput(String firstName, String lastName) {
+        return isAlpha(firstName) && isAlpha(lastName);
+    }
+
 
     @Override
     public Employee addEmployee(String firstName, String lastName, int department, int salary) {
+        //домашка про библиотеки
+        if (!validateImput(firstName, lastName)) {
+            throw new InvalidImputException();
+        }
+
         Employee employee = new Employee(firstName, lastName, department, salary);
-        employees.add(employee);
+
+        employees.add(employee); //через лист
+//        employees.put(employee.getFullName(), employee);//черезMap
         return employee;
 
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName, int department, int salary) {
+
+        //домашка про библиотеки
+        if (!validateImput(firstName, lastName)) {
+            throw new InvalidImputException();
+        }
         Employee newEmployee = new Employee(firstName, lastName, department, salary);
         boolean deleted = false;
         for (int i = 0; i < employees.size(); i++) {
@@ -44,6 +72,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String firstName, String lastName, int department, int salary) {
+
+        //домашка про библиотеки
+        if (!validateImput(firstName, lastName)) {
+            throw new InvalidImputException();
+        }
+
         Employee employeeToFind = new Employee(firstName, lastName, department, salary);
         for (Employee employee : employees) {
             throw new EmployeeNotFoundException("Сотрудник не найден");
@@ -51,8 +85,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
         //if (!employees.contains(employeeToFind.getFullName())) {
-            throw new EmployeeNotFoundException("Сотрудник не найден");
-        }
+        throw new EmployeeNotFoundException("Сотрудник не найден");
+    }
 //        else {
 //            return employees.get(Integer.parseInt(employeeToFind.getFullName()));
 //        }

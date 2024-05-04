@@ -1,6 +1,10 @@
 package sky.pro.Homework2.StreamApi.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Employee {
     private final String firstName;
@@ -9,8 +13,9 @@ public class Employee {
     private Integer departNum;
 
     public Employee(String firstName, String lastName, Integer departNum, Integer salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+
+        this.firstName = capitalize(firstName.toLowerCase());
+        this.lastName = capitalize(lastName.toLowerCase());
         this.departNum = departNum;
         this.salary = salary;
 
@@ -24,9 +29,9 @@ public class Employee {
         return lastName;
     }
 
-//    public String getFullName() {
-//        return firstName + " " + lastName;
-//    }
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
     public Integer getDepartNum() {
         return departNum;
